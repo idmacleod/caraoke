@@ -23,7 +23,7 @@ class SushiTest < MiniTest::Test
     end
 
     def test_sushi_is_vegetarian()
-        assert_equal(false, @sushi.is_vegetarian)
+        refute(@sushi.is_vegetarian)
     end
 
 end
