@@ -34,5 +34,5 @@ class Room
     def remove_song(song)
         @playlist.delete(song)
     end
-
+    
 end

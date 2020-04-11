@@ -87,7 +87,7 @@ class RoomTest < MiniTest::Test
         assert_equal(2, @room2.guests.length)
         assert_equal(4.00, @room2.takings)
     end
-
+    
     def test_guest_cannot_check_in_without_sufficient_funds()
         @room.check_in(@guest)
         @room.check_in(@guest2)

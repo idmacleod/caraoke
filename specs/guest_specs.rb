@@ -4,12 +4,15 @@ MiniTest::Reporters.use! MiniTest::Reporters::SpecReporter.new
 
 require_relative('../guest')
 require_relative('../song')
+require_relative('../room')
 
 class GuestTest < MiniTest::Test
 
     def setup()
         @song = Song.new("My Way", "Frank Sinatra")
+        @song2 = Song.new("Song 2", "Blur")
         @guest = Guest.new("Scarlett", 35, 1000000.00, @song, false)
+        @room = Room.new("Little Blue Room", 4, 5.00)
     end
 
     def test_guest_has_name()
@@ -48,6 +51,18 @@ class GuestTest < MiniTest::Test
     def test_guest_can_pay__failure()
         @guest.pay(4000000.00)
         assert_equal(1000000.00, @guest.wallet)
+    end
+
+    def test_guest_can_cheer__success()
+        @room.check_in(@guest)
+        @room.add_song(@song)
+        assert_equal("Yay! 'My Way' is my favourite song!", @guest.cheer(@room))
+    end
+
+    def test_guest_can_cheer__failure()
+        @room.check_in(@guest)
+        @room.add_song(@song2)
+        assert_equal("Let's add some cool music to the playlist!", @guest.cheer(@room))
     end
     
 end

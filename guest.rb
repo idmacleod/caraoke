@@ -18,4 +18,12 @@ class Guest
         @wallet -= cash if can_afford?(cash)
     end
 
+    def cheer(room)
+        if room.playlist.include?(@favourite_song)
+            return "Yay! '#{@favourite_song.title}' is my favourite song!"
+        else
+            return "Let's add some cool music to the playlist!"
+        end
+    end
+
 end
