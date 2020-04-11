@@ -32,5 +32,23 @@ class GuestTest < MiniTest::Test
         refute(@guest.is_vegetarian)
     end
 
+    def test_can_afford__true()
+        assert(@guest.can_afford?(50.00))
+    end
+
+    def test_can_afford__false()
+        refute(@guest.can_afford?(2000000.00))
+    end
+    
+    def test_guest_can_pay__success()
+        @guest.pay(400000.00)
+        assert_equal(600000.00, @guest.wallet)
+    end
+
+    def test_guest_can_pay__failure()
+        @guest.pay(4000000.00)
+        assert_equal(1000000.00, @guest.wallet)
+    end
+    
 end
 

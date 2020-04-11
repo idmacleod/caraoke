@@ -10,4 +10,12 @@ class Guest
         @is_vegetarian = is_vegetarian
     end
 
+    def can_afford?(cash)
+        return @wallet >= cash
+    end
+
+    def pay(cash)
+        @wallet -= cash if can_afford?(cash)
+    end
+
 end
