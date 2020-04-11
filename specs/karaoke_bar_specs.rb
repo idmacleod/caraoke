@@ -28,8 +28,23 @@ class KaraokeBarTest < MiniTest::Test
         @karaoke_bar = KaraokeBar.new("Sakura", @rooms, @drink_stock, @sushi_stock)
     end
 
-    def test_bar_has_name
+    def test_bar_has_name()
         assert_equal("Sakura", @karaoke_bar.name)
+    end
+
+    def test_bar_has_rooms()
+        assert_equal(4, @karaoke_bar.rooms.length)
+        assert_equal(Room, @karaoke_bar.rooms[0].class)
+    end
+
+    def test_bar_has_drinks()
+        assert_equal(4, @karaoke_bar.drink_stock.length)
+        assert_equal(Drink, @karaoke_bar.drink_stock.keys[0].class)
+    end
+
+    def test_bar_has_sushi()
+        assert_equal(4, @karaoke_bar.sushi_stock.length)
+        assert_equal(Sushi, @karaoke_bar.sushi_stock.keys[0].class)
     end
 
 end

@@ -1,6 +1,6 @@
 class KaraokeBar
 
-    attr_reader :name
+    attr_reader :name, :rooms, :drink_stock, :sushi_stock
 
     def initialize(name, rooms, drink_stock, sushi_stock)
         @name = name
