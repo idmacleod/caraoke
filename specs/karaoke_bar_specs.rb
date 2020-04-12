@@ -178,7 +178,7 @@ class KaraokeBarTest < MiniTest::Test
         refute(@bar.check_diet_ok?(@guest3, @sushi))
     end
 
-    def test_cannot_sell_alcohol_underage()
+    def test_cannot_sell_alcohol_to_minor()
         @bar.sell_drink_to_guest(@drink, @guest4)
         assert_equal(20.00, @guest4.wallet)
         assert_equal(0.00, @bar.till)
