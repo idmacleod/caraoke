@@ -137,4 +137,21 @@ class KaraokeBarTest < MiniTest::Test
         assert_equal(0, @bar.stock_count(@drink3))
     end
 
+    def test_cannot_sell_sushi_if_do_not_stock()
+        @bar.sell_sushi_to_guest(@sushi5, @guest)
+        assert_equal(1000000.00, @guest.wallet)
+        assert_equal(0.00, @bar.till)
+        assert_nil(@bar.stock_count(@sushi5))
+    end
+
+    def test_cannot_sell_sushi_if_out_of_stock()
+        @bar.sell_sushi_to_guest(@sushi2, @guest)
+        @bar.sell_sushi_to_guest(@sushi2, @guest)
+        @bar.sell_sushi_to_guest(@sushi2, @guest)
+        @bar.sell_sushi_to_guest(@sushi2, @guest)
+        assert_equal(999950.50, @guest.wallet)
+        assert_equal(49.50, @bar.till)
+        assert_equal(0, @bar.stock_count(@sushi2))
+    end
+
 end

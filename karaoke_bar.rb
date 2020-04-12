@@ -29,9 +29,11 @@ class KaraokeBar
     end
 
     def sell_sushi_to_guest(sushi, guest)
-        guest.pay(sushi.price)
-        @till += sushi.price
-        @sushi_stock[sushi] -= 1
+        if in_stock?(sushi)
+            guest.pay(sushi.price)
+            @till += sushi.price
+            @sushi_stock[sushi] -= 1
+        end
     end
 
 end
