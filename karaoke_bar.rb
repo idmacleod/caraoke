@@ -15,10 +15,17 @@ class KaraokeBar
         return @sushi_stock[item] if item.class == Sushi
     end
 
+    def in_stock?(item)
+        return false if !stock_count(item)
+        return stock_count(item) > 0
+    end
+
     def sell_drink_to_guest(drink, guest)
-        guest.pay(drink.price)
-        @till += drink.price
-        @drink_stock[drink] -= 1
+        if in_stock?(drink)
+            guest.pay(drink.price)
+            @till += drink.price
+            @drink_stock[drink] -= 1
+        end
     end
 
     def sell_sushi_to_guest(sushi, guest)
