@@ -178,4 +178,18 @@ class KaraokeBarTest < MiniTest::Test
         refute(@bar.check_diet_ok?(@guest3, @sushi))
     end
 
+    def test_cannot_sell_alcohol_underage()
+        @bar.sell_drink_to_guest(@drink, @guest4)
+        assert_equal(20.00, @guest4.wallet)
+        assert_equal(0.00, @bar.till)
+        assert_equal(100, @bar.stock_count(@drink))
+    end
+
+    def test_cannot_sell_non_veg_to_vegetarian()
+        @bar.sell_sushi_to_guest(@sushi, @guest3)
+        assert_equal(1000000.00, @guest3.wallet)
+        assert_equal(0.00, @bar.till)
+        assert_equal(50, @bar.stock_count(@sushi))
+    end
+
 end

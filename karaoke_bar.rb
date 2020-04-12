@@ -31,7 +31,7 @@ class KaraokeBar
     end
 
     def sell_drink_to_guest(drink, guest)
-        if in_stock?(drink)
+        if in_stock?(drink) && check_age_ok?(guest, drink)
             guest.pay(drink.price)
             @till += drink.price
             @drink_stock[drink] -= 1
@@ -39,7 +39,7 @@ class KaraokeBar
     end
 
     def sell_sushi_to_guest(sushi, guest)
-        if in_stock?(sushi)
+        if in_stock?(sushi) && check_diet_ok?(guest, sushi)
             guest.pay(sushi.price)
             @till += sushi.price
             @sushi_stock[sushi] -= 1
