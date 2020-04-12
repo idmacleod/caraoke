@@ -20,6 +20,16 @@ class KaraokeBar
         return stock_count(item) > 0
     end
 
+    def check_age_ok?(guest, drink)
+        return true if drink.alcohol == 0
+        return guest.age >= 18
+    end
+
+    def check_diet_ok?(guest, sushi)
+        return true if !guest.is_vegetarian
+        return sushi.is_vegetarian
+    end
+
     def sell_drink_to_guest(drink, guest)
         if in_stock?(drink)
             guest.pay(drink.price)

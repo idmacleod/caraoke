@@ -34,7 +34,7 @@ class KaraokeBarTest < MiniTest::Test
         @guest = Guest.new("Scarlett", 35, 1000000.00, @song, false)
         @guest2 = Guest.new("Poor Joe", 81, 2.50, @song, true)
         @guest3 = Guest.new("Brad", 56, 1000000.00, @song, true)
-        @guest4 = Guest.new("Young Joe", 4, 20.00, @song, false)
+        @guest4 = Guest.new("Young Joe", 9, 20.00, @song, false)
     end
 
     def test_bar_has_name()
@@ -152,6 +152,30 @@ class KaraokeBarTest < MiniTest::Test
         assert_equal(999950.50, @guest.wallet)
         assert_equal(49.50, @bar.till)
         assert_equal(0, @bar.stock_count(@sushi2))
+    end
+
+    def test_check_age_ok__true_alco()
+        assert(@bar.check_age_ok?(@guest, @drink))
+    end
+
+    def test_check_age_ok__true_non_alco()
+        assert(@bar.check_age_ok?(@guest4, @drink4))
+    end
+
+    def test_check_age_ok__false()
+        refute(@bar.check_age_ok?(@guest4, @drink))
+    end
+
+    def test_check_diet_ok__true_non_veg()
+        assert(@bar.check_diet_ok?(@guest, @sushi))
+    end
+
+    def test_check_diet_ok__true_veg()
+        assert(@bar.check_diet_ok?(@guest3, @sushi2))
+    end
+
+    def test_check_diet_ok__false()
+        refute(@bar.check_diet_ok?(@guest3, @sushi))
     end
 
 end

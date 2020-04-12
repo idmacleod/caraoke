@@ -12,6 +12,8 @@ class GuestTest < MiniTest::Test
         @song = Song.new("My Way", "Frank Sinatra")
         @song2 = Song.new("Song 2", "Blur")
         @guest = Guest.new("Scarlett", 35, 1000000.00, @song, false)
+        @guest2 = Guest.new("Brad", 56, 1000000.00, @song, true)
+        @guest3 = Guest.new("Young Joe", 4, 20.00, @song, false)
         @room = Room.new("Little Blue Room", 4, 5.00)
     end
 
