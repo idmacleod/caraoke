@@ -80,7 +80,7 @@ class RoomTest < MiniTest::Test
 
     def test_cannot_check_in_guest_if_room_full()
         song3 = Song.new("Dancing Queen", "ABBA")
-        guest3 = Guest.new("Brad", 56, 1000000.00, song3, false)
+        guest3 = Guest.new("Brad", 56, 1000000.00, song3, true)
         @room2.check_in(@guest)
         @room2.check_in(@guest2)
         @room2.check_in(guest3)

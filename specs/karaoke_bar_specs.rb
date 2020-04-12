@@ -6,6 +6,8 @@ require_relative('../karaoke_bar')
 require_relative('../room')
 require_relative('../drink')
 require_relative('../sushi')
+require_relative('../song')
+require_relative('../guest')
 
 class KaraokeBarTest < MiniTest::Test
 
@@ -25,26 +27,49 @@ class KaraokeBarTest < MiniTest::Test
         @sushi3 = Sushi.new("Salmon Nigiri", :nigiri, 4.00, false)
         @sushi4 = Sushi.new("Edamame", :snack, 2.50, true)
         @sushi_stock = {@sushi => 50, @sushi2 => 5, @sushi3 => 100, @sushi4 => 200}
-        @karaoke_bar = KaraokeBar.new("Sakura", @rooms, @drink_stock, @sushi_stock)
+        @bar = KaraokeBar.new("Sakura", @rooms, @drink_stock, @sushi_stock)
+        @song = Song.new("My Way", "Frank Sinatra")
+        @guest = Guest.new("Scarlett", 35, 1000000.00, @song, false)
+        @guest2 = Guest.new("Poor Joe", 81, 2.50, @song, true)
+        @guest3 = Guest.new("Brad", 56, 1000000.00, @song, true)
+        @guest4 = Guest.new("Young Joe", 4, 20.00, @song, false)
     end
 
     def test_bar_has_name()
-        assert_equal("Sakura", @karaoke_bar.name)
+        assert_equal("Sakura", @bar.name)
     end
 
     def test_bar_has_rooms()
-        assert_equal(4, @karaoke_bar.rooms.length)
-        assert_equal(Room, @karaoke_bar.rooms[0].class)
+        assert_equal(4, @bar.rooms.length)
+        assert_equal(Room, @bar.rooms[0].class)
     end
 
     def test_bar_has_drinks()
-        assert_equal(4, @karaoke_bar.drink_stock.length)
-        assert_equal(Drink, @karaoke_bar.drink_stock.keys[0].class)
+        assert_equal(4, @bar.drink_stock.length)
+        assert_equal(Drink, @bar.drink_stock.keys[0].class)
     end
 
     def test_bar_has_sushi()
-        assert_equal(4, @karaoke_bar.sushi_stock.length)
-        assert_equal(Sushi, @karaoke_bar.sushi_stock.keys[0].class)
+        assert_equal(4, @bar.sushi_stock.length)
+        assert_equal(Sushi, @bar.sushi_stock.keys[0].class)
+    end
+
+    def test_till_starts_empty()
+        assert_equal(0.00, @bar.till)
+    end
+
+    def test_bar_can_sell_drink_to_guest
+        @bar.sell_drink_to_guest(@drink, @guest)
+        assert_equal(999995.00, @guest.wallet)
+        assert_equal(5.00, @bar.till)
+        assert_equal(99, @bar.stock_count(@drink))
+    end
+
+    def test_bar_can_sell_sushi_to_guest
+        @bar.sell_sushi_to_guest(@sushi, @guest)
+        assert_equal(999995.50, @guest.wallet)
+        assert_equal(4.50, @bar.till)
+        assert_equal(49, @bar.stock_count(@sushi))
     end
 
 end
